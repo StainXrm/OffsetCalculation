@@ -1,0 +1,416 @@
+/*Fonts and Overrides*/
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700,300);
+
+*
+{
+	font-family: 'Open Sans', sans-serif;
+}
+
+input,select {
+	background-color: white;
+	border-radius: 5px;
+	border: 1px solid darkgrey;
+}
+
+a:hover
+{
+	text-decoration: none; !important
+}
+a:active
+{
+	text-decoration: none; !important
+}
+/*End Fonts and Overrides*/
+
+/*Navigation Stuff*/
+#mainnav, #subnav
+{
+	font-family: 'Open Sans', sans-serif;
+	text-transform: uppercase;
+	font-size: 14px;
+	width: 250px;
+	height: 100%;
+	background-color: #29292B;
+	padding-left: 0px;
+	z-index: 30;
+}
+
+#subnav
+{
+	position: fixed;
+	height: 55px;
+	width: 100%;
+	background-color: white;
+	box-shadow: 0px 0px 5px darkgrey;
+}
+
+#mainnav>a, #subnav>a
+{
+	display: block;
+	padding: 27px;
+	--width: 250px;
+	width:100%;
+	font-size: 14px;
+	height: 70px;
+	color: #BBBBBB;
+	text-decoration: none;
+	border-bottom: 1px solid #494949;
+	z-index: 30;
+}
+
+#subnav>a
+{
+	color: #6E6E6E;
+	padding: 2.5vh;
+	border-right: 1px solid #CCCCCC;
+	border-bottom: none;
+	--width: 250px;
+	width:14.5%;
+	padding: 20px;
+	height: 55px;
+	float: left;
+}
+
+#subnav>a.activeLink
+{
+	background-color: #FF8585;
+	color: white;
+}
+
+#mainnav>a:hover
+{
+	background-color: #191919;
+	color: white;
+}
+
+ #subnav>a:hover
+{
+	background-color: #BBBBBB;
+	color: white;
+}
+/*End Navigation Stuff*/
+
+/*Logo*/
+#logo
+{
+	background-image: url("../img/logo.png");
+	background-size: 60%;
+	background-color: #3394DE; /*#f1495b;*/
+	background-position: center center;
+	background-repeat: no-repeat;
+	width: 250px;
+	height: 110px !important;
+}
+
+#logo:hover
+{
+	background-color: #4488BC !important;
+}
+/*End Logo*/
+
+/*ng-view*/
+ng-view
+{
+	position: absolute;
+	left: 250px;
+	right: 0px;
+	top: 0px;
+	bottom:0px;
+	overflow: hidden;
+	word-wrap:break-word;
+	z-index: 30;
+}
+
+/*body*/
+html, body {
+	width: 100%;
+	height: 100%;
+}
+
+/*Calculation settings stuff */
+.settingstoggle
+{
+	background-color: #F1F1F1;
+	width: 96%;
+	height: 300px;
+	padding-top: 20px;
+	position: absolute;
+	left: 2%;
+	padding-left: 1px;
+	box-shadow: 0px 3px 3px darkgrey;
+	z-index: 5;
+}
+.settingstoggle.upsettings
+{
+	top:-230px;
+}
+
+/*Table for calculation settings go here*/
+.settingstoggle>.settingstable
+{
+	float: left;
+	width: 33.33%;
+
+	font-size: 0.70vw;
+}
+.settingstable tr
+{
+	padding: 2px;
+	height: 25px;
+	overflow: hidden;
+}
+.settingstable input[type="number"]
+{
+	width: 3vw;
+}
+.settingstable input[type="text"]
+{
+	width: 20vw;
+}
+.settingstable select
+{
+	width: 15vw;
+}
+.settingstable tr:nth-child(odd)
+{
+	background-color: #EBEBEB;
+}
+.toggleshowsettingsicon
+{
+	width: 80px;
+	height: 80px;
+	padding: 22px;
+	font-size: 40px;
+	background-color: #E6E6E6;
+	border-radius: 40px;
+	position: absolute;
+	left: 50%;
+	top:260px;
+	margin-left: -40px;
+	box-shadow: 0px 0px 6px #616161;
+	color: darkgrey;
+	text-decoration: none;
+	cursor: pointer;
+}
+.toggleshowsettingsicon:hover
+{
+	text-decoration: none;
+	text-shadow: 0px 0px 3px white;
+	color: white;
+}
+
+/*Main Calculation Table showing results and goodies*/
+.searchbar 
+{
+	margin-left: 3px;
+}
+
+.maintable 
+{
+	z-index: 0;
+	position: relative;
+	left: 0;
+	top:0px;
+	right: 0;
+	bottom: 0;
+	font-size: 14px;
+	width:100%;
+	/*max-height: 100%;*/
+/*	overflow-x:none;
+	overflow-y:scroll;*/
+}
+
+.maintable tbody 
+{
+	overflow: scroll;
+}
+
+.maintable th
+{
+	font-weight: 300;
+	font-size: 20px;
+	//background:linear-gradient(to top , #C7C7C7, #EAEAEA);
+	border-bottom: 1px solid lightgrey;
+}
+
+.maintable tr td, .maintable tr td input
+{
+	font-size: 12px;
+	text-align: right;
+}
+
+.maintable tr th
+{
+	text-align: right;
+}
+
+.maintable td, .maintable th
+{
+	padding: 0px 20px;
+}
+
+.maintable tr th:first-child 
+{
+	text-align: left;
+}
+
+.maintable tr td:first-child 
+{
+	text-align: left;
+}
+
+.maintable tbody tr:nth-child(odd) 
+{
+  background-color: #F6F6F6;
+}
+
+#anchor2 .containpreview{
+	position: relative;
+	top: 10px;
+	left: 50%;
+	height:667px;
+	width: 800px;
+	margin-left:-400px;
+
+}
+
+#PrintMe
+{	
+	margin-top: 10px;
+	padding: 30px;
+	font-size: 8pt;
+	height: 567px;
+	border: 1px solid #A7A7A7 !important;
+	box-shadow: 0px 0px 10px grey;
+}
+
+#PrintMe tr td, #PrintMe tr th {
+		font-size: 6pt;
+}
+
+
+.SubView
+{
+	z-index: -40;
+	height: 100%;
+	width: 100%;
+	/*overflow: hidden;*/
+}
+
+.SubView section
+{
+	padding: 10px;
+	padding-top: 65px;
+	height: 100%;
+	width: 100%;
+	z-index: -40;
+	overflow: hidden;
+	overflow-y:auto;
+}
+.nopad {
+	padding: 0px !important;
+}
+
+/*Different class styles*/
+/*with styles*/
+.wvw1
+{
+	width: 1vw !important;
+}
+.wvw13
+{
+	width: 13vw !important;
+}
+
+.textLeft
+{
+	text-align: left;
+}
+
+.hcenter
+{
+	text-align: center;
+}
+.magentaLine{
+	background-color: #FFC7FF !important; 
+}
+.greenLine{
+	background-color: #E9FFE9 !important; 
+}
+.orangeLine{
+	background-color: #FEEED2 !important; 
+}
+.redLine {
+	background-color: #FFC4C4 !important;
+}
+.blueLine{
+	background-color: #E9F3FF !important; 
+}
+.bordertop{
+	border-top: 1px solid #ABABAB;
+}
+.borderbottom{
+	border-bottom: 1px solid #ABABAB;
+}
+
+.animate-enter.animate-enter-active, .animate-leave {
+	left: 0;
+}
+.error {
+	color: #CC0000;
+}
+
+/*input:valid{
+	color: green;
+}*/
+/*input:invalid{
+	color: red;
+}*/
+
+/*Animations:*/
+.greenFlash{
+	animation-name: greenBlinker;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    --animation-iteration-count: infinite;
+}
+@keyframes greenBlinker {  
+    50% { 
+    	background-color: #E9FFE9; 
+    }
+}
+
+.redFlash{
+	animation-name: redBlinker;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    --animation-iteration-count: infinite;
+}
+@keyframes redBlinker {  
+    50% { 
+    	background-color: #FFE8E9; 
+    }
+}
+
+/*Size variation*/
+/*==========================================================================*/
+/*==========================================================================*/
+/*==========================================================================*/
+/*==========================================================================*/
+
+/* Small devices (tablets, 992px and lower) */
+@media (max-width: 992px) {
+	#mainnav>a, #subnav>a {
+		font-size: 12px;
+	}
+
+	#subnav>a {
+		padding: 19px;
+	}
+}
+
+
+/*==========================================================================*/
+/*==========================================================================*/
+/*==========================================================================*/
+/*==========================================================================*/

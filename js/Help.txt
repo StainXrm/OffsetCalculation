@@ -1,0 +1,27 @@
+Umsatz (if given)
+Rohbogen (which one)
+Rohbogen Price ---> good idea?
+Druckformat (nutzen?)
+Format offen (nutzen?)
+Greiferrand 
+Anschnitt
+Format Geschlossen (nutzen?)
+Extra Druckpaltten + EDE
+Farben
+Farbwaschen
+Seitenzahl
+Duplexwahl
+Blattzahl
+Heften
+Zusammentragen
+Lochen
+Leimen
+Rillen
+Personalisieren
+Falzen
+Formatschnitt
+Verpacken
+lackieren
+Laminieren
+Liefern
+Zusatzkosten 1-3 + Preis

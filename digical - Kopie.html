@@ -1,0 +1,347 @@
+<!-- Subnav here -->
+<div id="subnav">
+	
+	<!-- Menu Entries -->
+	<!-- Einstellungen -->
+	<a ng-click="gotoAnchor(1)" ng-class="{activeLink : anchor == 1}" href="">
+		<div class="glyphicon glyphicon-wrench"></div> Rechner
+	</a>
+	<!-- Drucken -->
+	<a ng-click="gotoAnchor(2)" ng-class="{activeLink : anchor == 2}" href="">
+		<div class="glyphicon glyphicon-print"></div> Drucken
+	</a>
+
+	<a ng-click="gotoAnchor(3)" ng-class="{activeLink : anchor == 3}" href="" >
+		<div class="glyphicon glyphicon-align-justify"></div> Papierpreise
+	</a>
+	<!-- Einstellungen -->
+	<a ng-click="gotoAnchor(4)" ng-class="{activeLink : anchor == 4}" href="">
+		<div class="glyphicon glyphicon-wrench"></div> Kosten
+	</a>
+</div>
+<!-- End Subnav -->
+
+	<div class="SubView">
+	<!-- Print window here -->
+		<section id="anchor1" >
+		<!-- Form -->
+			<ng-form name="sForm" class="settingstoggle" ng-class="showtoggler" novalidate >
+				<table class="settingstable">
+					<tr><td colspan="3">Kunde: <input type="text" ng-model="setting.kunde"/></td></tr>
+					<tr></tr>
+					<tr></tr>
+					
+					<tr>
+						<td>
+							Umsatz (%):
+						</td>	
+						<td ng-show="!setting.autoprofit">
+							<input type="number" ng-model="setting.profit" min="10"  />
+						</td>
+						<td>
+							<input type="checkbox" ng-model="setting.autoprofit" ng-click="autoProfit()"/>Automatisch
+						</td>
+						<td ng-show="setting.autoprofit">
+						</td>
+					</tr>
+<!-- 					<tr><td>Rabatt (%):</td>	<td colspan="2"><input type="number" ng-model="setting.rabatt" name="rabatt" min="0" max="20" /><span class="error" ng-show="sForm.rabatt.$error.min || sForm.rabatt.$error.max">Bitte nur eine Zahl von 0 bis 20!</span></td></tr> -->
+					<!-- setting.rabatt This still needs validation to contain numbers between 0 and 20 -->
+					<tr><td colspan="2">Rohbogen: 
+						<select name="profit" ng-change="rawSheetChange()" ng-model="setting.rawSheetSelect" ng-options="paper.description for paper in setting.rawpaper | orderBy:'description'">
+						</select>
+					</td>
+					<td>
+						€/TBg.: <input type="number" ng-model="setting.rohbogenPreis" min="0" />
+					</td></tr>
+
+					<tr><td>Druckformat:</td>	<td>
+						<input type="number" ng-model="setting.druckFormat.x" min="0" max="999" />x
+						<input type="number" ng-model="setting.druckFormat.y" min="0" max="999" />mm
+						<td>Nutzen:<input type="number" ng-model="setting.druckFormat.nutzen" min="0" class="w58" /></td>
+					</td></tr>
+
+					<tr><td>Format Offen:</td>	<td>	
+						<input type="number" ng-model="setting.offenFormat.x" min="0" max="999" />x
+						<input type="number" ng-model="setting.offenFormat.y" min="0" max="999" />mm
+						<td>Nutzen:<input type="number" ng-model="setting.offenFormat.nutzen" min="0" class="w58" /></td>
+					</td></tr>
+
+					<tr>
+					<td>
+						Anschnitt: <input type="number" ng-model="setting.offenFormat.anschnitt" min="0" class="w58" />mm
+					</td>
+					<td></td>
+					</tr>
+
+					<tr><td>
+					Format Geschlossen:</td>	<td>
+						<input type="number" ng-model="setting.geschlossenFormat.x" min="0" max="999" />x
+						<input type="number" ng-model="setting.geschlossenFormat.y" min="0" max="999" />mm
+						<td>Nutzen:<input type="number" ng-model="setting.geschlossenFormat.nutzen" min="0" class="w58" /></td>
+					</td></tr>
+				</table>
+
+				<table class="settingstable">
+					<tr><td colspan="4">Projekt: <input type="text" ng-model="setting.poject" /></td></tr>
+					<tr></tr>
+					<tr></tr>
+					<tr><td>
+					Maschine:</td>
+						<td><input type="radio" ng-model="setting.maschine" value="Versafire" />Versafire</td>
+						<td><input type="radio" ng-model="setting.maschine" value="Versafire-Minimal" />VF - Minimal</td>
+						<td colspan="2"><input type="radio" ng-model="setting.maschine" value="DC242" />DC242</td>
+					</td></tr>
+
+<!-- 					<tr>
+						<td>Extra Druckpaltten:</td>			<td><input type="number" ng-model="setting.extraDruckplatten" min="0" class="w58" /></td>
+						<td>Extra Druckplatten Einrichten:</td>	<td><input type="checkbox" ng-model="setting.extraDruckplattenEinrichten" ng-true-value="'Ja'" ng-false-value="'Nein'"/></td>
+					</tr> -->
+
+					<tr>
+						<td>Färbig:</td>		<td><input type="checkbox" ng-model="setting.farbe" /></td>
+						<!-- <td>Farbwaschen:</td>	<td><input type="number" ng-model="setting.farbWaschen" min="0" class="w58" /></td> -->
+						<td></td>
+					</tr>
+					<tr>
+						<td>Seitenzahl:</td>	<td colspan="3"><input type="number" ng-model="setting.seitenZahl" min="0" class="w58" /></td>
+						
+					</tr>
+
+					<tr>
+					<td>Duplex: 
+						<td colspan="3"><input type="radio" ng-model="setting.duplex" value="Simplex" />Simplex
+						<input type="radio" ng-model="setting.duplex" value="Duplex" />Duplex</td>
+					</tr>
+
+					<tr>
+						<td colspan="2">Vorstufe:<input type="number" ng-model="setting.satzZeit" min="0" class="w58" />Minuten</td>
+						<td colspan="2">Blattzahl: á <input type="number" ng-model="setting.blattZahl" min="0" class="w58" /> Blatt</td>
+					</tr>
+					<tr><td colspan="4"></td></tr>
+				</table>
+				<!-- Some Checkboxing -->
+				<table class="settingstable">
+					<tr><td colspan="4">Notizen: <input type="text" ng-model="setting.notes" /></td></tr>
+					<tr></tr>
+					<tr>
+						<td colspan="4">Auflagen:
+							<input type="number" ng-model="setting.auflage[0]" min="0" class="w58" />
+							<input type="number" ng-model="setting.auflage[1]" min="0" class="w58" />
+							<input type="number" ng-model="setting.auflage[2]" min="0" class="w58" />
+							<input type="number" ng-model="setting.auflage[3]" min="0" class="w58" />
+							<input type="number" ng-model="setting.auflage[4]" min="0" class="w58" />
+							<input type="number" ng-model="setting.auflage[5]" min="0" class="w58" />
+							<input type="number" ng-model="setting.auflage[6]" min="0" class="w58" />
+						</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" ng-model="setting.heften" />Heften</td>
+						<td><input type="checkbox" ng-model="setting.zusammentragen" />Zusammentragen</td>
+						<td><input type="checkbox" ng-model="setting.lochen" />Lochen</td>
+						<td><input type="checkbox" ng-model="setting.leimen" />Leimen</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" ng-model="setting.rillenStanzen" />Rillen/Stanzen</td>
+						<td><input type="checkbox" ng-model="setting.perosonalieren" />Personalisieren</td>
+						<td><input type="checkbox" ng-model="setting.falzen" />Falzen</td>
+						<td><input type="checkbox" ng-model="setting.formatschnitt" />Formatschnitt</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" ng-model="setting.verwaltung" />Datenannahme</td>
+						<td><input type="checkbox" ng-model="setting.verpacken" />Verpacken</td>
+						<!-- <td><input ng-click="moreWash();" ng-disabled="setting.cellophanieren" type="checkbox" ng-model="setting.lackieren" />Lackieren</td> -->
+						<td colspan="2"><input ng-disabled="setting.lackieren" type="checkbox" ng-model="setting.cellophanieren" />Laminieren</td>
+					</tr>
+					<tr>
+						<td>Liefern: <input type="number" ng-model="setting.liefern" min="0" style="width: 2.0vw;" />km</td>
+						<td><!-- <span ng-show="setting.maschine == 'Offsetdruck'"><input type="checkbox" ng-model="setting.ek_half" />1/2 Einrichtkosten </span> --></td>
+						<td colspan="2"><span style="float:left;" ng-show="setting.lackieren || setting.cellophanieren">
+							<input type="radio" ng-model="setting.lc_duplex" value="1" />1-S	&nbsp;
+							<input type="radio" ng-model="setting.lc_duplex" value="2" />2-S	&nbsp;
+							<input type="checkbox" ng-model="setting.lc_umschlag" />Nur Umsch.
+						</span></td>
+					</tr>
+					<tr><td>Zusätzliche Kosten:</td></tr>
+					<tr>
+						<td colspan="2"><input type="text" ng-model="setting.special[0].name" class="wvw13" />:</td>
+						<td>€<input type="number" ng-model="setting.special[0].price" /></td>
+					</tr>
+					<tr>
+						<td colspan="2"><input type="text" ng-model="setting.special[1].name" class="wvw13" />:</td>
+						<td>€<input type="number" ng-model="setting.special[1].price" /></td>
+					</tr>
+					<tr>
+						<td colspan="2"><input type="text" ng-model="setting.special[2].name" class="wvw13" />:</td>
+						<td>€<input type="number" ng-model="setting.special[2].price" /></td>
+					</tr>
+				</table>
+				<a ng-click="toggleCustom()" class="toggleshowsettingsicon glyphicon" ng-class="showtogglericon"></a>
+			</ng-form>
+			<!-- End Form -->
+
+			<table class="maintable" style="top:52px;">
+				<thead>
+					<tr>
+						<th>Auflagen:</th>
+						<th ng-show="auflage > 0" ng-repeat="auflage in setting.auflage track by $index">{{setting.auflage[$index] | number : fractionSize}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-show="setting.special[0].price"><td>{{setting.special[0].name}}</td><td ng-show="auflage" ng-repeat="auflage in setting.auflage track by $index">€ {{setting.special[0].price}}</td></tr>
+					<tr ng-show="setting.special[1].price"><td>{{setting.special[1].name}}</td><td ng-show="auflage" ng-repeat="auflage in setting.auflage track by $index">€ {{setting.special[1].price}}</td></tr>
+					<tr ng-show="setting.special[2].price"><td>{{setting.special[2].name}}</td><td ng-show="auflage" ng-repeat="auflage in setting.auflage track by $index">€ {{setting.special[2].price}}</td></tr>
+					<tr ng-repeat="pl in price track by $index">
+						<td>{{pl.label.length ? pl.label+ ":": '&nbsp;'}}</td>
+						<td title="{{pl.label +' EP:'}} {{pl[$index].ep  | currency : '€' : 4}}" ng-repeat="auflage in setting.auflage track by $index" ng-show="auflage > 0">
+						{{ pl[$index].title.length ? "("+pl[$index].title+")" : ''}} 
+						{{pl[$index].value | currency}}
+						</td>
+					</tr>
+					<tr><td class="bordertop" colspan="99">&nbsp;</td></tr> <!-- Hier geben wir die summen (Netto, Brutto, Umsatz) aus -->
+
+					<tr ng-class="elem.css" ng-repeat="elem in pricesum | orderBy: elem.i track by $index">
+						<td>{{elem.label}}</td>
+						<td ng-repeat="auflage in setting.auflage track by $index" ng-show="auflage > 0" title="{{elem.label +' EP:'}} {{elem[$index].ep  | currency : '€' : 4}}">
+						{{elem[$index].title}}{{elem[$index].value | currency }}
+						</td>
+					</tr>
+
+					<tr><td class="borderbottom" colspan="99">&nbsp;</td></tr> <!-- Hier werden genauere Infos ausgegeben -->
+
+					<tr ng-class="{redLine : elem.error == true}" ng-repeat="elem in priceinfo | orderBy: elem.i track by $index">
+						<td>{{elem.label}}</td>
+						<td ng-repeat="auflage in setting.auflage track by $index" ng-show="auflage > 0">{{elem[$index].val}}</td>
+					</tr>
+
+				</tbody>
+			</table>
+		</section>
+
+		<section id="anchor2">
+			<div class="containpreview">
+				<button type="button" class="btn btn-primary" onclick="printit('PrintMe')" ng-href="">Auf Papier</button>
+				<!-- <button type="button" class="btn btn-primary">Als HTML</button>
+				<button type="button" class="btn btn-primary">Als Text</button>
+				<button type="button" class="btn btn-primary">Als PDF</button> -->
+				<div id="PrintMe">
+				<div style="float:left;">
+					<font color="#FF9A9A">Kunde: {{setting.kunde}}</font><br>
+					Projekt: {{setting.poject}}<br>
+					Notizen: {{setting.notes}}
+				</div>
+				<div style="float: right;">
+					Datum: {{setting.currentdatetime}}
+				</div>
+					<table class="maintable">
+						<thead>
+							<tr>
+								<th>Auflagen:</th>
+								<th ng-show="auflage > 0" ng-repeat="auflage in setting.auflage track by $index">{{setting.auflage[$index] | number : fractionSize}}</th>
+							</tr>
+						</thead>
+						<tbody>
+					<tr ng-show="setting.special[0].price"><td>{{setting.special[0].name}}</td><td ng-show="auflage" ng-repeat="auflage in setting.auflage track by $index">€ {{setting.special[0].price}}</td></tr>
+					<tr ng-show="setting.special[1].price"><td>{{setting.special[1].name}}</td><td ng-show="auflage" ng-repeat="auflage in setting.auflage track by $index">€ {{setting.special[1].price}}</td></tr>
+					<tr ng-show="setting.special[2].price"><td>{{setting.special[2].name}}</td><td ng-show="auflage" ng-repeat="auflage in setting.auflage track by $index">€ {{setting.special[2].price}}</td></tr>
+							<tr ng-repeat="pl in price track by $index">
+								<td>{{pl.label.length ? pl.label+ ":": '&nbsp;'}}</td>
+								<td title="{{pl.label +' EP:'}} {{pl[$index].ep  | currency : '€' : 4}}" ng-repeat="auflage in setting.auflage track by $index" ng-show="auflage > 0">
+								{{ pl[$index].title.length ? "("+pl[$index].title+")" : ''}} 
+								{{pl[$index].value | currency}}
+								</td>
+							</tr>
+							<tr><td class="bordertop" colspan="99">&nbsp;</td></tr> <!-- Hier geben wir die summen (Netto, Brutto, Umsatz) aus -->
+
+							<tr ng-class="elem.css" ng-repeat="elem in pricesum | orderBy: elem.i track by $index">
+								<td>{{elem.label}}</td>
+								<td ng-repeat="auflage in setting.auflage track by $index" ng-show="auflage > 0" title="{{elem.label +' EP:'}} {{elem[$index].ep  | currency : '€' : 4}}">
+								{{elem[$index].title}}{{elem[$index].value | currency }}
+								</td>
+							</tr>
+
+							<tr><td class="borderbottom" colspan="99">&nbsp;</td></tr> <!-- Hier werden genauere Infos ausgegeben -->
+
+							<tr ng-class="{redLine : elem.error == true}" ng-repeat="elem in priceinfo | orderBy: elem.i track by $index">
+								<td>{{elem.label}}</td>
+								<td ng-repeat="auflage in setting.auflage track by $index" ng-show="auflage > 0">{{elem[$index].val}}</td>
+							</tr>
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</section>
+
+		<!-- Rohbogen window here -->
+		<section id="anchor3">
+			<div class="glyphicon glyphicon-search" style="float:right; padding: 5px;"><input type="text" class="searchbar" ng-model="setting.filter.rawpaper" /></div>
+			<table class="maintable">
+				<thead>
+					<tr>
+						<th><a href="" ng-click="orderrawpaper = 'label'; reverse=!reverse" >Bezeichnung</a></th>
+						<th><a href="" ng-click="orderrawpaper = 'gm2'; reverse=!reverse" >g/m²</a></th>
+						<th><a href="" ng-click="orderrawpaper = 'width'; reverse=!reverse" >Länge(mm)</a></th>
+						<th><a href="" ng-click="orderrawpaper = 'height'; reverse=!reverse" >Breite(mm)</a></th>
+						<th><a href="" ng-click="orderrawpaper = 'tbgprice'; reverse=!reverse" >Preis(TBg.)</a></th>
+						<th ng-show="false"><a href="" ng-click="orderrawpaper = 'kgprice'; reverse=!reverse" >Preis(100kg)</a></th>
+						<th><a href="" ng-click="orderrawpaper = 'datum'; reverse=!reverse" >Änderungsdatum</a></th>
+						<th></th>
+						<th width="63"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr style="background: #E9FFFF" ng-class="FlashOK[elem.PID]">
+						<td><input placeholder="Neuer Eintrag" type="text" ng-model="setting.newRawpaper.label"/></td>
+						<td><input type="number" min="0" ng-model="setting.newRawpaper.gm2"/></td>
+						<td><input type="number" min="0" ng-model="setting.newRawpaper.width"></td>
+						<td><input type="number" min="0" ng-model="setting.newRawpaper.height"></td>
+						<td><input type="number" min="0" ng-model="setting.newRawpaper.tbgprice"></td>
+						<td ng-show="false"><input type="number" min="0" ng-model="setting.newRawpaper.kgprice"></td>
+						<td></td>
+						<td><a ng-click="rawPaperSave(setting.newRawpaper,0)" href="" class="glyphicon glyphicon-plus"></a></td>
+						<td></td>
+					</tr>
+					<tr ng-repeat="elem in setting.rawpaper | orderBy:orderrawpaper:reverse | filter: setting.filter.rawpaper track by $index" ng-class="FlashOK[elem.PID]">
+						<td><input type="text" ng-model="elem.label"/></td>
+						<td><input type="number" min="0" ng-model="elem.gm2"/></td>
+						<td><input type="number" min="0" ng-model="elem.width"></td>
+						<td><input type="number" min="0" ng-model="elem.height"></td>
+						<td><input type="number" min="0" ng-model="elem.tbgprice"></td>
+						<td ng-show="false"><input type="number" min="0" ng-model="elem.kgprice"></td>
+						<td>{{elem.datum}}</td>
+						<td><a ng-click="rawPaperSave(elem,elem.PID)" href="" class="glyphicon glyphicon-refresh"></a></td>
+						<td><a ng-click="rawPaperDelete(elem.PID)" href="" class="glyphicon glyphicon-trash"></a></td>
+					</tr>
+				</tbody>
+			</table>
+		</section>
+
+		<!-- Price window here -->
+		<section id="anchor4">
+		<div class="glyphicon glyphicon-search" style="float:right; padding: 5px;"><input type="text" class="searchbar" ng-model="setting.filter.price" /></div>
+			<table class="maintable">
+				<thead>
+					<tr>
+						<th><a href="" ng-click="predicate = 'Label'; reverse=!reverse" >Bezeichnung</a></th>
+						<th><a href="" ng-click="predicate = 'Datum'; reverse=!reverse" >Änderungsdatum</a></th>
+						<th><a href="" ng-click="predicate = 'Einheit'; reverse=!reverse" >Einheit per</a></th>
+						<th><a href="" ng-click="predicate = 'einrichtPreis'; reverse=!reverse" >Einrichtkosten</a></th>
+						<th><a href="" ng-click="predicate = 'prodPreis'; reverse=!reverse" >Produktionskosten</a></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="elem in setting.price | orderBy:predicate:reverse | filter: setting.filter.price track by $index" ng-class="FlashOK[elem.PID]">
+						<td>{{elem.Label}}</td>
+						<td>{{elem.Datum}}</td>
+						<td>{{elem.Einheit}}</td>
+						<td>€<input type="number" min="0" ng-model="elem.einrichtPreis" class="w69"></td>
+						<td>
+							€<input type="number" min="0" ng-model="elem.prodPreis" class="w69">
+						</td>
+						<td><a ng-click="saveSettingPrice(elem,elem.PID)" href="" class="glyphicon glyphicon-refresh"></a></td>
+					</tr>
+				</tbody>
+			</table>
+		</section>
+	</div>
